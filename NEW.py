@@ -58,6 +58,8 @@ class Session:
   
 
 class Finances:
+    def __init__(self):
+        
   
     # Assume monthly salary is paid at the start of a new month
     def end_of_month(dt):
