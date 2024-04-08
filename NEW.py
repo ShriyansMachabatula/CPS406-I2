@@ -16,11 +16,11 @@ class Members:
                 for row in reader:
                     self.members[row['MemberID']] = {
                         'Name': row['Name'],
+                        'Phone': row.get('Phone', ''),
+                        'Address': row.get('Address', ''),
                         'Attendance': int(row.get('Attendance', 0)),
                         'PaidSessions': int(row.get('PaidSessions', 0)),
                         'UnpaidSessions': int(row.get('UnpaidSessions', 0)),
-                        'Phone': row.get('Phone', ''),
-                        'Address': row.get('Address', ''),
                         'Streak': int(row.get('Streak', 0)), 
                     }
         except ValueError as e:
