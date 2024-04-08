@@ -58,7 +58,23 @@ class Session:
   
 
 class Finances:
-    def __init__(self):
+    def __init__(self, csv_file):
+        self.income_statement = {'revenues': [], 'expenses': []}
+        self.members = {}  # Dictionary to hold member info
+        self.load_members_from_csv(csv_file)
+
+    def add_revenue(self, source, amount):
+        self.income_statement['revenues'].append((source, amount))
+    
+    def calculate_total_revenue(self):
+        return sum(amount for _, amount in self.income_statement['revenues'])
+
+    def add_expense(self, source, amount):
+        self.income_statement['expenses'].append((source, amount))
+    
+    def calculate_total_expenses(self):
+        return sum(amount for _, amount in self.income_statement['expenses'])
+
         
   
     # Assume monthly salary is paid at the start of a new month
