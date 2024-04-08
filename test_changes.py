@@ -109,3 +109,8 @@ class ClubFinance:
             # Simulate payment
             print(f"{self.name} has made a payment of {amount} for {practice_session}")
             self.confirm_payment()
+
+    class Session():
+        def __init__(self, class_time, member_list):
+            self.class_time = class_time
+            self.member_list = []
