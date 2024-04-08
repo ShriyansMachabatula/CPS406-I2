@@ -79,3 +79,24 @@ class ClubFinance:
                     writer.writerow(row)
         except Exception as e:
             print(f"Error saving CSV data: {e}")
+
+    # Adam's Code
+    def create_member_list(self):
+        # List of members
+        member_list = []
+        for member_id, details in self.members.items():
+            if details['Attendance'] > 0: # Checking if they attended at least one class
+                member_info = {
+                    'MemberID': member_id,
+                    'Name': details['Name'],
+                    'Phone': details['Phone'],
+                    'Paid': details['Paid'],
+                    'Address': details['Address']
+                }
+                member_list.append(member_info)
+        return member_list
+    def make_payment(self, amount, practice_session):
+            # Simulate payment
+            print(f"{self.name} has made a payment of {amount} for {practice_session}")
+            self.confirm_payment()
+
