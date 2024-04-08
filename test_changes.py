@@ -110,3 +110,12 @@ class ClubFinance:
             print(f"{self.name} has made a payment of {amount} for {practice_session}")
             self.confirm_payment()
 
+class Person():
+    def __init__(self, member_id, name, phone, balance, address):
+        self.member_id = member_id
+        self.name = name
+        self.phone = phone
+        self.balance = balance
+        self.address = address
+        self.paid = False # Default paid status is False
+        self.member_list = []
