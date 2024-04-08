@@ -25,6 +25,7 @@ class Members:
                     }
         except ValueError as e:
             print(f"Error loading CSV data: {e}")
+
             
     def create_member_list(self):
         member_list = []
@@ -46,7 +47,11 @@ class Members:
         sorted_members = sorted(self.members.values(), key=lambda x: x['PaidSessions'], reverse=True)
         return sorted_members
 
-  
+  def attendance_sorted(self):
+        # This method returns a list of members sorted by Attendance in descending order
+        sorted_members_by_attendance = sorted(self.members.values(), key=lambda x: x['Attendance'], reverse=True)
+        return sorted_members_by_attendance 
+      
 class Session:
 
 
