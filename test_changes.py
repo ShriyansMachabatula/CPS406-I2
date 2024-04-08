@@ -81,6 +81,7 @@ class ClubFinance:
             print(f"Error saving CSV data: {e}")
 
     # Adam's Code
+
     def create_member_list(self):
         # List of members
         member_list = []
@@ -95,6 +96,13 @@ class ClubFinance:
                 }
                 member_list.append(member_info)
         return member_list
+    class PracticeSession:
+        def __init__(self, member, date, coach, cost):
+            self.member = member
+            self.date = date
+            self.coach = coach
+            self.cost = cost
+            self.payment_status = 'Pending'
     def make_payment(self, amount, practice_session):
             # Simulate payment
             print(f"{self.name} has made a payment of {amount} for {practice_session}")
