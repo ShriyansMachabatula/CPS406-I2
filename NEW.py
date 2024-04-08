@@ -69,4 +69,7 @@ class Finances:
             return True
         else:
             return False  
-
+    def make_payment(self, amount, practice_session):
+        # Simulate payment
+        print(f"{self.name} has made a payment of {amount} for {practice_session}")
+        self.confirm_payment()
