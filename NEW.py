@@ -43,7 +43,7 @@ class Members:
                 member_list.append(member_info)
         return member_list
 
-    def Paid_sorted(self):
+    def paid_sorted(self):
         sorted_members = sorted(self.members.values(), key=lambda x: x['PaidSessions'], reverse=True)
         return sorted_members
 
