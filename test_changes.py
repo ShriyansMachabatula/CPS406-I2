@@ -89,10 +89,12 @@ class ClubFinance:
             if details['Attendance'] > 0: # Checking if they attended at least one class
                 member_info = {
                     'MemberID': member_id,
-                    'Name': details['Name'],
                     'Phone': details['Phone'],
-                    'Paid': details['Paid'],
+                    'Name': details['Name'],
                     'Address': details['Address']
+                    'PaidSessions': details['PaidSessions'],
+                    'UnpaidSessions': details['UnpaidSessions'],
+                    'Streak': details['Streak'],
                 }
                 member_list.append(member_info)
         return member_list
