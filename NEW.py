@@ -41,6 +41,15 @@ class Members:
                 if unpaid_sessions >= exclusion_threshold:
                     print(f"{details['Name']} is being considered for exclusion due to {unpaid_sessions} unpaid sessions.")
 
+    def complimentaryDiscounts(self):
+        discount_percentage = 10  # 10% discount
+        required_streak = 3  # Required streak of months without missing a payment
+        for member_id, details in self.members.items():
+            if details['Streak'] >= required_streak:
+                print(f"{details['Name']} has earned a {discount_percentage}% discount for maintaining a payment streak of {details['Streak']} months.")
+     
+
+
     def create_member_list(self):
         member_list = []
         for member_id, details in self.members.items():
