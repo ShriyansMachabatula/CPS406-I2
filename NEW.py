@@ -27,7 +27,7 @@ class Members:
             print(f"Error loading CSV data: {e}")
 
 
-    def check_payments_and_notify(self):
+    def informPayments(self):
         penalty_fee = 50  # This is an example amount for a penalty fee
         exclusion_threshold = 3  # Members with unpaid sessions equal to or greater than this are excluded
         
