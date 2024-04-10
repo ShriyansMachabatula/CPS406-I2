@@ -26,7 +26,21 @@ class Members:
         except ValueError as e:
             print(f"Error loading CSV data: {e}")
 
-            
+
+    def check_payments_and_notify(self):
+        penalty_fee = 50  # This is an example amount for a penalty fee
+        exclusion_threshold = 3  # Members with unpaid sessions equal to or greater than this are excluded
+        
+        for member_id, details in self.members.items():
+            unpaid_sessions = details['UnpaidSessions']
+            paid_sessions = details['PaidSessions']
+            if unpaid_sessions > 0:
+                print(f"Reminder sent to {details['Name']} for {unpaid_sessions} unpaid session(s).")
+                if paid_sessions < 2 and unpaid_sessions < exclusion_threshold:
+                    print(f"Penalty of ${penalty_fee} applied to {details['Name']} for unpaid sessions.")                
+                if unpaid_sessions >= exclusion_threshold:
+                    print(f"{details['Name']} is being considered for exclusion due to {unpaid_sessions} unpaid sessions.")
+
     def create_member_list(self):
         member_list = []
         for member_id, details in self.members.items():
