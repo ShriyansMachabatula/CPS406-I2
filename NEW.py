@@ -4,9 +4,6 @@ import csv
 class Main:
 
 
-
-import csv 
-
 class Members:
     def __init__(self, csv_file):
         self.members = {}  
