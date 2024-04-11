@@ -68,9 +68,25 @@ class Members:
         return sorted_members
 
     def attendance_sorted(self):
-            # This method returns a list of members sorted by Attendance in descending order
             sorted_members_by_attendance = sorted(self.members.values(), key=lambda x: x['Attendance'], reverse=True)
-            return sorted_members_by_attendance 
+            return sorted_members_by_attendance
+        
+    def apply_discount(self, member_id, discount_percentage):
+        if member_id in self.members:
+            self.members[member_id]['DiscountApplied'] = True
+            
+    def top_10_attendees_discount(self):
+        top_10_members = self.attendance_sorted()[:10]
+        discount_percentage = 10
+        
+        for member in top_10_members:
+            member_id = member['MemberID']
+            name = member['Name']
+            if not member.get('DiscountApplied', False):  
+                self.apply_discount(member_id, discount_percentage)
+                print(f"{name} is one of the top 10 attendees and receives a {discount_percentage}% discount for one class.")
+            else:
+                print(f"{name} has already received a discount.")
       
 class Session:
 
