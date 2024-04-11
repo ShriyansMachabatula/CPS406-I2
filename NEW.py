@@ -83,7 +83,8 @@ class Session:
 class Finances:
     def __init__(self, csv_file):
         self.income_statement = {'revenues': [], 'expenses': []}
-        self.members = {}  # Dictionary to hold member info
+        self.members = {} 
+        self.advance_payments = {}
         self.load_members_from_csv(csv_file)
 
     def load_members_from_csv(self, csv_file):
@@ -157,6 +158,15 @@ class Finances:
                 profit_changes['no_change'].append(current_month)
     
             return profit_changes
+
+    def add_advance_payment(self, member_id, amount, for_month):
+        if for_month not in self.advance_payments:
+            self.advance_payments[for_month] = []
+        self.advance_payments[for_month].append({'member_id': member_id, 'amount': amount})
+
+    def get_current_month_payables(self):
+        current_month = datetime.now().month
+        return sum(payment['amount'] for payment in self.advance_payments.get(current_month, []))
 
         
   
