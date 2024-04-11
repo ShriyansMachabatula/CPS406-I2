@@ -110,7 +110,7 @@ class Finances:
                         'Attendance': int(row.get('Attendance', 0)),
                         'PaidSessions': int(row.get('PaidSessions', 0)),
                         'UnpaidSessions': int(row.get('UnpaidSessions', 0)),
-                        'ConsecutiveMonthsPaid': int(row.get('ConsecutiveMonthsPaid', 0))
+                        'Streak': int(row.get('Streak', 0)), 
                     }
         except ValueError as e:
             print(f"Error loading CSV data: {e}")
