@@ -86,17 +86,77 @@ class Finances:
         self.members = {}  # Dictionary to hold member info
         self.load_members_from_csv(csv_file)
 
-    def add_revenue(self, source, amount):
-        self.income_statement['revenues'].append((source, amount))
+    def load_members_from_csv(self, csv_file):
+        try:
+            with open(csv_file, mode='r') as file:
+                reader = csv.DictReader(file)
+                for row in reader:
+                    self.members[row['MemberID']] = {
+                        'Name': row['Name'],
+                        'Attendance': int(row.get('Attendance', 0)),
+                        'PaidSessions': int(row.get('PaidSessions', 0)),
+                        'UnpaidSessions': int(row.get('UnpaidSessions', 0)),
+                        'ConsecutiveMonthsPaid': int(row.get('ConsecutiveMonthsPaid', 0))
+                    }
+        except ValueError as e:
+            print(f"Error loading CSV data: {e}")
+            
+    def add_revenue(self, source, amount, month):
+        self.income_statement['revenues'].append({'source': source, 'amount': amount, 'month': month})
+    
+    def add_expense(self, source, amount, month):
+        self.income_statement['expenses'].append({'source': source, 'amount': amount, 'month': month})
+
+    def calculate_total_revenue(self):
+        return sum(revenue['amount'] for revenue in self.income_statement['revenues'])
+
+    def calculate_total_expenses(self):
+        return sum(expense['amount'] for expense in self.income_statement['expenses'])
     
     def calculate_total_revenue(self):
-        return sum(amount for _, amount in self.income_statement['revenues'])
-
-    def add_expense(self, source, amount):
-        self.income_statement['expenses'].append((source, amount))
-    
+        return sum(revenue['amount'] for revenue in self.income_statement['revenues'])
     def calculate_total_expenses(self):
-        return sum(amount for _, amount in self.income_statement['expenses'])
+        return sum(expense['amount'] for expense in self.income_statement['expenses'])
+
+
+    def calculate_monthly_profit(self):
+        # Reset monthly profit
+        self.monthly_profit = {month: 0 for month in range(1, 13)}
+        
+        # Calculate revenues per month
+        for revenue in self.income_statement['revenues']:
+            month = revenue['month']
+            self.monthly_profit[month] += revenue['amount']
+        
+        # Subtract expenses per month
+        for expense in self.income_statement['expenses']:
+            month = expense['month']
+            self.monthly_profit[month] -= expense['amount']
+        
+        return self.monthly_profit
+    
+    def analyze_profit_change(self):
+        months_with_data = sorted(self.monthly_profit.keys())
+        profit_changes = {
+            'increased': [],
+            'decreased': [],
+            'no_change': []
+        }
+
+        for i in range(1, len(months_with_data)):
+            current_month = months_with_data[i]
+            previous_month = months_with_data[i-1]
+            current_profit = self.monthly_profit[current_month]
+            previous_profit = self.monthly_profit[previous_month]
+
+            if current_profit > previous_profit:
+                profit_changes['increased'].append((current_month, current_profit - previous_profit))
+            elif current_profit < previous_profit:
+                profit_changes['decreased'].append((current_month, previous_profit - current_profit))
+            else:
+                profit_changes['no_change'].append(current_month)
+    
+            return profit_changes
 
         
   
